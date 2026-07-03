@@ -1,134 +1,380 @@
-<script>
-  const ADMIN_EDIT_URL = "https://github.com/jun899kr/WORTHPICK/edit/main/posts.json";
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  const DEFAULT_CATEGORIES = [
-    "전체",
-    "소개",
-    "💡 제품 리뷰",
-    "🏠 생활 꿀팁",
-    "💼 비즈니스",
-    "📱 IT & AI",
-    "⭐ Worth Pick"
-  ];
+  <title>WORTHPICK</title>
+  <meta name="description" content="세상의 모든 가치있는 것들에 대해" />
 
-  let posts = [];
-  let currentCategory = "전체";
-  let currentSearch = "";
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
 
-  function goAdmin() {
-    window.open(ADMIN_EDIT_URL, "_blank");
-  }
-
-  async function init() {
-    try {
-      const response = await fetch("posts.json?v=" + new Date().getTime());
-      posts = await response.json();
-
-      posts.sort((a, b) => new Date(b.date) - new Date(a.date));
-
-      renderCategories();
-      renderPosts();
-      renderSidePosts();
-    } catch (error) {
-      renderCategories();
-      document.getElementById("emptyMessage").style.display = "block";
-      document.getElementById("emptyMessage").textContent = "posts.json 파일을 불러오지 못했습니다.";
-      console.error(error);
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans KR", sans-serif;
+      background: #f7f2ea;
+      color: #222;
     }
-  }
 
-  function renderCategories() {
-    const categoryList = document.getElementById("categoryList");
+    a { color: inherit; text-decoration: none; }
 
-    const postCategories = posts.map(post => post.category);
-    const categories = [...new Set([...DEFAULT_CATEGORIES, ...postCategories])];
+    .layout { display: flex; min-height: 100vh; }
 
-    categoryList.innerHTML = "";
+    .sidebar {
+      width: 260px;
+      background: #fffaf3;
+      border-right: 1px solid #e5ded3;
+      padding: 28px 22px;
+      position: fixed;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      overflow-y: auto;
+    }
 
-    categories.forEach(category => {
-      const li = document.createElement("li");
-      li.textContent = category;
+    .sidebar-title {
+      font-size: 18px;
+      font-weight: 700;
+      margin-bottom: 18px;
+      letter-spacing: 0.5px;
+    }
 
-      if (category === currentCategory) li.classList.add("active");
+    .admin-btn {
+      width: 100%;
+      border: 1px solid #222;
+      background: #222;
+      color: #fff;
+      padding: 11px 12px;
+      border-radius: 999px;
+      font-size: 14px;
+      cursor: pointer;
+      margin-bottom: 24px;
+    }
 
-      li.onclick = function () {
-        currentCategory = category;
+    .category-list { list-style: none; margin-bottom: 28px; }
 
-        document.querySelectorAll(".category-list li").forEach(item => {
-          item.classList.remove("active");
-        });
+    .category-list li {
+      padding: 10px 0;
+      font-size: 15px;
+      color: #555;
+      cursor: pointer;
+      border-bottom: 1px solid #eee4d8;
+    }
 
-        li.classList.add("active");
+    .category-list li.active,
+    .category-list li:hover {
+      color: #111;
+      font-weight: 700;
+    }
+
+    .post-list-title {
+      font-size: 13px;
+      color: #888;
+      margin-bottom: 10px;
+    }
+
+    .side-post {
+      font-size: 14px;
+      line-height: 1.45;
+      padding: 9px 0;
+      border-bottom: 1px solid #eee4d8;
+      color: #444;
+      cursor: pointer;
+    }
+
+    .side-post:hover {
+      color: #000;
+      font-weight: 600;
+    }
+
+    .main {
+      margin-left: 260px;
+      width: calc(100% - 260px);
+      padding: 54px 56px;
+    }
+
+    .hero {
+      text-align: center;
+      margin-bottom: 46px;
+    }
+
+    .hero h1 {
+      font-size: 48px;
+      letter-spacing: 4px;
+      font-weight: 800;
+      margin-bottom: 14px;
+    }
+
+    .hero p {
+      font-size: 18px;
+      color: #555;
+    }
+
+    .search-box {
+      max-width: 720px;
+      margin: 0 auto 36px;
+    }
+
+    .search-box input {
+      width: 100%;
+      padding: 15px 18px;
+      border: 1px solid #ddd2c2;
+      border-radius: 999px;
+      background: #fffaf3;
+      font-size: 15px;
+      outline: none;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 26px;
+    }
+
+    .card {
+      background: #fffaf3;
+      border: 1px solid #e5ded3;
+      border-radius: 22px;
+      overflow: hidden;
+      cursor: pointer;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 30px rgba(0,0,0,0.08);
+    }
+
+    .card img {
+      width: 100%;
+      height: 210px;
+      object-fit: cover;
+      display: block;
+      background: #e7dfd2;
+    }
+
+    .card-body { padding: 20px; }
+
+    .meta {
+      font-size: 13px;
+      color: #8a7d6e;
+      margin-bottom: 10px;
+    }
+
+    .card h2 {
+      font-size: 20px;
+      line-height: 1.35;
+      margin-bottom: 10px;
+    }
+
+    .card p {
+      font-size: 15px;
+      line-height: 1.6;
+      color: #555;
+    }
+
+    .empty {
+      text-align: center;
+      color: #777;
+      padding: 80px 0;
+      font-size: 16px;
+    }
+
+    footer {
+      margin-top: 70px;
+      text-align: center;
+      color: #999;
+      font-size: 13px;
+    }
+
+    @media (max-width: 900px) {
+      .layout { display: block; }
+
+      .sidebar {
+        position: relative;
+        width: 100%;
+        border-right: none;
+        border-bottom: 1px solid #e5ded3;
+      }
+
+      .main {
+        margin-left: 0;
+        width: 100%;
+        padding: 38px 20px;
+      }
+
+      .hero h1 { font-size: 36px; }
+
+      .grid { grid-template-columns: 1fr; }
+
+      .card img { height: 220px; }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="layout">
+    <aside class="sidebar">
+      <div class="sidebar-title">WORTHPICK</div>
+
+      <button class="admin-btn" onclick="goAdmin()">+ 글 추가 / 수정</button>
+
+      <ul class="category-list" id="categoryList"></ul>
+
+      <div class="post-list-title">게시글 리스트</div>
+      <div id="sidePostList"></div>
+    </aside>
+
+    <main class="main">
+      <section class="hero">
+        <h1>WORTHPICK</h1>
+        <p>세상의 모든 가치있는 것들에 대해</p>
+      </section>
+
+      <div class="search-box">
+        <input type="text" id="searchInput" placeholder="검색어를 입력하세요" oninput="searchPosts()" />
+      </div>
+
+      <section class="grid" id="postGrid"></section>
+      <div class="empty" id="emptyMessage" style="display:none;">게시글이 없습니다.</div>
+
+      <footer>© WORTHPICK. All rights reserved.</footer>
+    </main>
+  </div>
+
+  <script>
+    const ADMIN_EDIT_URL = "https://github.com/jun899kr/WORTHPICK/edit/main/posts.json";
+
+    const DEFAULT_CATEGORIES = [
+      "전체",
+      "소개",
+      "💡 제품 리뷰",
+      "🏠 생활 꿀팁",
+      "💼 비즈니스",
+      "📱 IT & AI",
+      "⭐ Worth Pick"
+    ];
+
+    let posts = [];
+    let currentCategory = "전체";
+    let currentSearch = "";
+
+    function goAdmin() {
+      window.open(ADMIN_EDIT_URL, "_blank");
+    }
+
+    async function init() {
+      try {
+        const response = await fetch("posts.json?v=" + new Date().getTime());
+        posts = await response.json();
+
+        posts.sort((a, b) => new Date(b.date) - new Date(a.date));
+
+        renderCategories();
         renderPosts();
-      };
-
-      categoryList.appendChild(li);
-    });
-  }
-
-  function searchPosts() {
-    currentSearch = document.getElementById("searchInput").value.toLowerCase();
-    renderPosts();
-  }
-
-  function getFilteredPosts() {
-    return posts.filter(post => {
-      const matchCategory = currentCategory === "전체" || post.category === currentCategory;
-      const keyword = `${post.title} ${post.category} ${post.summary}`.toLowerCase();
-      const matchSearch = keyword.includes(currentSearch);
-      return matchCategory && matchSearch;
-    });
-  }
-
-  function renderPosts() {
-    const grid = document.getElementById("postGrid");
-    const emptyMessage = document.getElementById("emptyMessage");
-    const filteredPosts = getFilteredPosts();
-
-    grid.innerHTML = "";
-
-    if (filteredPosts.length === 0) {
-      emptyMessage.style.display = "block";
-      emptyMessage.textContent = "게시글이 없습니다.";
-      return;
+        renderSidePosts();
+      } catch (error) {
+        renderCategories();
+        document.getElementById("emptyMessage").style.display = "block";
+        document.getElementById("emptyMessage").textContent = "posts.json 파일을 불러오지 못했습니다.";
+        console.error(error);
+      }
     }
 
-    emptyMessage.style.display = "none";
+    function renderCategories() {
+      const categoryList = document.getElementById("categoryList");
 
-    filteredPosts.forEach(post => {
-      const card = document.createElement("article");
-      card.className = "card";
-      card.onclick = () => {
-        window.location.href = post.url;
-      };
+      const postCategories = posts.map(post => post.category);
+      const categories = [...new Set([...DEFAULT_CATEGORIES, ...postCategories])];
 
-      card.innerHTML = `
-        <img src="${post.image}" alt="${post.title}">
-        <div class="card-body">
-          <div class="meta">${post.category} · ${post.date}</div>
-          <h2>${post.title}</h2>
-          <p>${post.summary}</p>
-        </div>
-      `;
+      categoryList.innerHTML = "";
 
-      grid.appendChild(card);
-    });
-  }
+      categories.forEach(category => {
+        const li = document.createElement("li");
+        li.textContent = category;
 
-  function renderSidePosts() {
-    const sidePostList = document.getElementById("sidePostList");
-    sidePostList.innerHTML = "";
+        if (category === currentCategory) li.classList.add("active");
 
-    posts.forEach(post => {
-      const item = document.createElement("div");
-      item.className = "side-post";
-      item.textContent = post.title;
-      item.onclick = () => {
-        window.location.href = post.url;
-      };
-      sidePostList.appendChild(item);
-    });
-  }
+        li.onclick = function () {
+          currentCategory = category;
 
-  init();
-</script>
+          document.querySelectorAll(".category-list li").forEach(item => {
+            item.classList.remove("active");
+          });
+
+          li.classList.add("active");
+          renderPosts();
+        };
+
+        categoryList.appendChild(li);
+      });
+    }
+
+    function searchPosts() {
+      currentSearch = document.getElementById("searchInput").value.toLowerCase();
+      renderPosts();
+    }
+
+    function getFilteredPosts() {
+      return posts.filter(post => {
+        const matchCategory = currentCategory === "전체" || post.category === currentCategory;
+        const keyword = `${post.title} ${post.category} ${post.summary}`.toLowerCase();
+        const matchSearch = keyword.includes(currentSearch);
+        return matchCategory && matchSearch;
+      });
+    }
+
+    function renderPosts() {
+      const grid = document.getElementById("postGrid");
+      const emptyMessage = document.getElementById("emptyMessage");
+      const filteredPosts = getFilteredPosts();
+
+      grid.innerHTML = "";
+
+      if (filteredPosts.length === 0) {
+        emptyMessage.style.display = "block";
+        emptyMessage.textContent = "게시글이 없습니다.";
+        return;
+      }
+
+      emptyMessage.style.display = "none";
+
+      filteredPosts.forEach(post => {
+        const card = document.createElement("article");
+        card.className = "card";
+        card.onclick = () => {
+          window.location.href = post.url;
+        };
+
+        card.innerHTML = `
+          <img src="${post.image}" alt="${post.title}">
+          <div class="card-body">
+            <div class="meta">${post.category} · ${post.date}</div>
+            <h2>${post.title}</h2>
+            <p>${post.summary}</p>
+          </div>
+        `;
+
+        grid.appendChild(card);
+      });
+    }
+
+    function renderSidePosts() {
+      const sidePostList = document.getElementById("sidePostList");
+      sidePostList.innerHTML = "";
+
+      posts.forEach(post => {
+        const item = document.createElement("div");
+        item.className = "side-post";
+        item.textContent = post.title;
+        item.onclick = () => {
+          window.location.href = post.url;
+        };
+        sidePostList.appendChild(item);
+      });
+    }
+
+    init();
+  </script>
+</body>
+</html>
