@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>WORTHPICK의 첫 번째 이야기</title>
+  <meta name="description" content="세상의 모든 가치있는 것들에 대해, WORTHPICK이 추구하는 방향과 기준을 소개합니다." />
+
+  <style>
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans KR", sans-serif;
+      background: #f7f2ea;
+      color: #222;
+      line-height: 1.8;
+    }
+
+    .container {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 42px 22px 80px;
+    }
+
+    .back {
+      display: inline-block;
+      margin-bottom: 32px;
+      color: #777;
+      text-decoration: none;
+      font-size: 14px;
+    }
+
+    .hero-img {
+      width: 100%;
+      max-height: 440px;
+      object-fit: cover;
+      border-radius: 24px;
+      margin-bottom: 34px;
+      background: #e7dfd2;
+    }
+
+    .meta {
+      color: #8a7d6e;
+      font-size: 14px;
+      margin-bottom: 12px;
+    }
+
+    h1 {
+      font-size: 36px;
+      line-height: 1.35;
+      margin-bottom: 28px;
+    }
+
+    h2 {
+      font-size: 24px;
+      margin-top: 42px;
+      margin-bottom: 14px;
+    }
+
+    p {
+      font-size: 17px;
+      margin-bottom: 18px;
+    }
+
+    blockquote {
+      border-left: 4px solid #222;
+      padding-left: 18px;
+      color: #444;
+      margin: 28px 0;
+      font-size: 18px;
+    }
+
+    ul {
+      padding-left: 22px;
+      margin-bottom: 24px;
+    }
+
+    li {
+      margin-bottom: 8px;
+      font-size: 17px;
+    }
+
+    @media (max-width: 700px) {
+      h1 { font-size: 30px; }
+      .container { padding-top: 28px; }
+    }
+  </style>
+</head>
+
+<body>
+  <main class="container">
+    <a class="back" href="../index.html">← WORTHPICK 홈으로</a>
+
+    <img class="hero-img" src="../images/about-worthpick.webp" alt="WORTHPICK 소개 이미지" />
+
+    <div class="meta">소개 · 2026-07-03</div>
+
+    <h1>WORTHPICK의 첫 번째 이야기</h1>
+
+    <blockquote>
+      좋은 선택은 더 많은 돈을 쓰는 것이 아니라, 오래 만족할 수 있는 가치를 찾는 것에서 시작됩니다.
+    </blockquote>
+
+    <p>우리는 하루에도 수십 번 선택을 합니다.</p>
+
+    <p>어떤 제품을 살지, 어떤 서비스를 이용할지, 어떤 정보를 믿을지. 인터넷에는 수많은 광고와 리뷰가 있지만, 정말 도움이 되는 정보는 의외로 많지 않습니다. 광고를 위해 작성된 글도 있고, 직접 사용하지 않은 채 작성된 후기들도 쉽게 찾아볼 수 있습니다.</p>
+
+    <p>WORTHPICK은 이러한 환경 속에서 조금 다른 방향을 선택했습니다.</p>
+
+    <p>단순히 "가성비가 좋다"거나 "인기가 많다"는 이유만으로 추천하지 않습니다. 왜 이 선택이 가치 있는지, 그리고 누구에게 적합한 선택인지 함께 이야기하고자 합니다.</p>
+
+    <h2>WORTHPICK이 추구하는 가치</h2>
+
+    <p>이 사이트는 특정 브랜드를 홍보하기 위해 만들어진 공간이 아닙니다.</p>
+
+    <p>생활용품부터 IT 기기, 비즈니스 정보, 서비스, 그리고 일상 속 작은 아이디어까지. 가격보다 가치(Value)를 우선으로 생각하며, 실제 도움이 되는 정보를 전달하는 것을 목표로 합니다.</p>
+
+    <p>좋은 제품이라도 모든 사람에게 최고의 선택은 아닐 수 있습니다. 반대로 잘 알려지지 않았지만 오랫동안 만족하며 사용할 수 있는 제품도 있습니다.</p>
+
+    <p>WORTHPICK은 이러한 숨은 가치를 발견하고 소개하는 공간이 되고자 합니다.</p>
+
+    <h2>어떤 글을 만나볼 수 있을까요?</h2>
+
+    <ul>
+      <li>생활을 더 편리하게 만드는 제품 리뷰</li>
+      <li>오래 사용할 수 있는 추천 아이템 </li>
+      <li>IT와 AI 활용 방법 </li>
+      <li>구매 전 꼭 알아야 할 비교 가이드</li>
+      <li>직접 조사하고 정리한 실용 정보</li>
+    </ul>
+
+    <h2>우리의 기준</h2>
+
+    <ul>
+      <li>사실에 기반한 정보 제공</li>
+      <li>장점뿐 아니라 단점도 함께 소개</li>
+      <li>광고보다 사용자 경험을 우선</li>
+      <li>불필요한 과장 없이 객관적인 비교</li>
+      <li>시간이 지나도 도움이 되는 콘텐츠 작성</li>
+    </ul>
+
+    <h2>첫걸음을 함께해 주세요</h2>
+
+    <p>아직 WORTHPICK은 시작 단계입니다. 앞으로 다양한 분야의 가치 있는 제품과 정보, 경험을 꾸준히 소개하며 더 많은 사람들이 합리적인 선택을 할 수 있도록 돕겠습니다.</p>
+
+    <p>누군가에게는 작은 정보 하나가 더 나은 소비로 이어지고, 더 나은 결정으로 이어질 수 있다고 믿습니다.</p>
+
+    <p>WORTHPICK은 앞으로도 세상의 모든 가치 있는 것들을 찾기 위해 계속 고민하고 기록하겠습니다.</p>
+
+    <p>감사합니다.</p>
+  </main>
+</body>
+</html>
