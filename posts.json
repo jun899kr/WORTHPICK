@@ -6,5 +6,13 @@
     "image": "images/about-worthpick.webp",
     "summary": "세상의 모든 가치있는 것들에 대해, WORTHPICK이 추구하는 방향과 기준을 소개합니다.",
     "url": "posts/about-worthpick.html"
-  }
+  },
+  {
+  "title": "2026년 모니터암 선택 가이드",
+  "category": "💡 제품 리뷰",
+  "date": "2026-07-03",
+  "image": "images/monitor-arm-guide.webp",
+  "summary": "후회 없는 모니터암을 고르기 위한 7가지 기준을 정리했습니다.",
+  "url": "posts/monitor-arm-guide.html"
+}
 ]
