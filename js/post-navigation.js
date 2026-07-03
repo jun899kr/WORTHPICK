@@ -1,62 +1,87 @@
-async function renderPostNavigation() {
+(async function () {
+  const relatedList = document.getElementById("relatedPosts");
+  const postNav = document.getElementById("postNav");
+
+  if (!relatedList || !postNav) return;
+
   try {
-    const relatedPostsEl = document.getElementById("relatedPosts");
-    const postNavEl = document.getElementById("postNav");
+    const res = await fetch("../../posts.json?v=" + Date.now());
+    const posts = await res.json();
 
-    if (!relatedPostsEl || !postNavEl) return;
-
-    const response = await fetch("../../posts.json?v=" + new Date().getTime());
-    const posts = await response.json();
-
-    const currentPath = window.location.pathname
-      .replace(/^\/+/, "");
-
+    // 현재 페이지 찾기
+    const currentPath = window.location.pathname.replace(/^\/+/, "");
     const currentIndex = posts.findIndex(post => post.url === currentPath);
 
     if (currentIndex === -1) {
-      relatedPostsEl.innerHTML = "<li>관련 글을 불러오지 못했습니다.</li>";
-      postNavEl.innerHTML = "<span>이전/다음 글을 불러오지 못했습니다.</span>";
+      relatedList.innerHTML = "<li>관련 글을 찾을 수 없습니다.</li>";
+      postNav.innerHTML = "";
       return;
     }
 
     const currentPost = posts[currentIndex];
 
-    const relatedPosts = posts
-      .filter(post => post.url !== currentPost.url)
-      .sort((a, b) => {
-        if (a.category === currentPost.category && b.category !== currentPost.category) return -1;
-        if (a.category !== currentPost.category && b.category === currentPost.category) return 1;
-        return 0;
-      })
-      .slice(0, 3);
+    // =====================
+    // 함께 읽으면 좋은 글
+    // =====================
 
-    relatedPostsEl.innerHTML = relatedPosts.map(post => `
+    let related = posts.filter(post =>
+      post.category === currentPost.category &&
+      post.url !== currentPost.url
+    );
+
+    // 같은 카테고리가 부족하면 최신 순으로 채움
+    if (related.length < 3) {
+      posts.forEach(post => {
+        if (
+          post.url !== currentPost.url &&
+          !related.find(r => r.url === post.url)
+        ) {
+          related.push(post);
+        }
+      });
+    }
+
+    related = related.slice(0, 3);
+
+    relatedList.innerHTML = related
+      .map(
+        post => `
       <li>
-        <a href="../../${post.url}">${post.title}</a>
+        <a href="../../${post.url}">
+          ${post.title}
+        </a>
       </li>
-    `).join("");
+    `
+      )
+      .join("");
 
-    const prevPost = posts[currentIndex - 1];
-    const nextPost = posts[currentIndex + 1];
+    // =====================
+    // 이전글 / 다음글
+    // =====================
 
-    postNavEl.innerHTML = `
-      ${prevPost ? `<a href="../../${prevPost.url}">← ${prevPost.title}</a>` : `<span>← 이전 글 없음</span>`}
-      ${nextPost ? `<a href="../../${nextPost.url}">${nextPost.title} →</a>` : `<span>다음 글 없음 →</span>`}
+    const prev = posts[currentIndex - 1];
+    const next = posts[currentIndex + 1];
+
+    postNav.innerHTML = `
+      <div style="display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;">
+        <div>
+          ${
+            prev
+              ? `<a href="../../${prev.url}">← ${prev.title}</a>`
+              : `<span>← 이전 글 없음</span>`
+          }
+        </div>
+
+        <div>
+          ${
+            next
+              ? `<a href="../../${next.url}">${next.title} →</a>`
+              : `<span>다음 글 없음 →</span>`
+          }
+        </div>
+      </div>
     `;
-  } catch (error) {
-    const relatedPostsEl = document.getElementById("relatedPosts");
-    const postNavEl = document.getElementById("postNav");
-
-    if (relatedPostsEl) {
-      relatedPostsEl.innerHTML = "<li>관련 글을 불러오지 못했습니다.</li>";
-    }
-
-    if (postNavEl) {
-      postNavEl.innerHTML = "<span>이전/다음 글을 불러오지 못했습니다.</span>";
-    }
-
-    console.error(error);
+  } catch (e) {
+    console.error(e);
   }
-}
-
-renderPostNavigation();
+})();
