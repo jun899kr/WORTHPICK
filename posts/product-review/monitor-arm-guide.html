@@ -113,7 +113,43 @@
       padding: 22px;
       margin-top: 32px;
     }
+.related-box {
+  margin-top: 54px;
+  padding: 26px 24px;
+  border-top: 1px solid #e5ded3;
+  border-bottom: 1px solid #e5ded3;
+  background: #fffaf3;
+  border-radius: 18px;
+}
 
+.related-box h2 {
+  font-size: 22px;
+  margin-top: 0;
+  margin-bottom: 16px;
+}
+
+.related-box ul {
+  margin-bottom: 24px;
+}
+
+.related-box a {
+  color: #444;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.related-box a:hover {
+  color: #111;
+}
+
+.post-nav {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  flex-wrap: wrap;
+
+
+}
     @media (max-width: 700px) {
       h1 { font-size: 30px; }
       .container { padding-top: 28px; }
@@ -246,6 +282,22 @@
     <p>좋은 모니터암 하나만으로도 책상 공간 활용은 물론 장시간 작업 시의 피로도까지 크게 줄일 수 있습니다.</p>
 
     <p>구매 전에는 하중, VESA 규격, 설치 방식, A/S 여부를 함께 비교하여 자신에게 맞는 제품을 선택하는 것을 추천합니다.</p>
-  </main>
+  
+  <div class="related-box">
+  <h2>📖 함께 읽으면 좋은 글</h2>
+
+  <ul id="relatedPosts">
+    <li>불러오는 중...</li>
+  </ul>
+
+  <div id="postNav" class="post-nav">
+    불러오는 중...
+  </div>
+</div>
+  
+</main>
+
+<script src="../../js/post-navigation.js"></script>
+
 </body>
 </html>
