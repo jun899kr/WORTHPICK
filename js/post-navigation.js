@@ -8,7 +8,6 @@
     const res = await fetch("../../posts.json?v=" + Date.now());
     const posts = await res.json();
 
-    // 현재 페이지 찾기
     const currentPath = window.location.pathname.replace(/^\/+/, "");
     const currentIndex = posts.findIndex(post => post.url === currentPath);
 
@@ -20,44 +19,28 @@
 
     const currentPost = posts[currentIndex];
 
-    // =====================
-    // 함께 읽으면 좋은 글
-    // =====================
-
-    let related = posts.filter(post =>
+    // 같은 카테고리 1개 우선
+    const sameCategory = posts.filter(post =>
       post.category === currentPost.category &&
       post.url !== currentPost.url
     );
 
-    // 같은 카테고리가 부족하면 최신 순으로 채움
-    if (related.length < 3) {
-      posts.forEach(post => {
-        if (
-          post.url !== currentPost.url &&
-          !related.find(r => r.url === post.url)
-        ) {
-          related.push(post);
-        }
-      });
-    }
+    // 다른 카테고리 글
+    const otherCategory = posts.filter(post =>
+      post.category !== currentPost.category &&
+      post.url !== currentPost.url
+    );
 
-    related = related.slice(0, 3);
+    const related = [...sameCategory.slice(0, 1), ...otherCategory]
+      .slice(0, 3);
 
     relatedList.innerHTML = related
-      .map(
-        post => `
-      <li>
-        <a href="../../${post.url}">
-          ${post.title}
-        </a>
-      </li>
-    `
-      )
+      .map(post => `
+        <li>
+          <a href="../../${post.url}">${post.title}</a>
+        </li>
+      `)
       .join("");
-
-    // =====================
-    // 이전글 / 다음글
-    // =====================
 
     const prev = posts[currentIndex - 1];
     const next = posts[currentIndex + 1];
