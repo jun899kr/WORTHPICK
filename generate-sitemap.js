@@ -1,61 +1,46 @@
-
 const fs = require("fs");
 
 const SITE_URL = "https://worthpick.co.kr";
 
-const posts = JSON.parse(fs.readFileSync("posts.json", "utf8"));
+function escapeXml(value) {
+  return String(value)
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&apos;");
+}
 
+const posts = JSON.parse(fs.readFileSync("posts.json", "utf8"));
 const today = new Date().toISOString().split("T")[0];
 
-let xml = `<?xml version="1.0" encoding="UTF-8"?>
+const fixedPages = [
+  { url: "/", lastmod: today, changefreq: "daily", priority: "1.0" },
+  { url: "/about.html", lastmod: today, changefreq: "monthly", priority: "0.5" },
+  { url: "/privacy.html", lastmod: today, changefreq: "yearly", priority: "0.3" },
+  { url: "/contact.html", lastmod: today, changefreq: "yearly", priority: "0.3" }
+];
+
+const postPages = posts.map(post => ({
+  url: "/" + post.url,
+  lastmod: post.date,
+  changefreq: "monthly",
+  priority: "0.8"
+}));
+
+const pages = [...fixedPages, ...postPages];
+
+const xml = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-
-<url>
-<loc>${SITE_URL}/</loc>
-<lastmod>${today}</lastmod>
-<changefreq>daily</changefreq>
-<priority>1.0</priority>
-</url>
-
-<url>
-<loc>${SITE_URL}/about.html</loc>
-<lastmod>${today}</lastmod>
-<changefreq>monthly</changefreq>
-<priority>0.5</priority>
-</url>
-
-<url>
-<loc>${SITE_URL}/privacy.html</loc>
-<lastmod>${today}</lastmod>
-<changefreq>yearly</changefreq>
-<priority>0.3</priority>
-</url>
-
-<url>
-<loc>${SITE_URL}/contact.html</loc>
-<lastmod>${today}</lastmod>
-<changefreq>yearly</changefreq>
-<priority>0.3</priority>
-</url>
-`;
-
-posts.forEach(post => {
-
-xml += `
-<url>
-<loc>${SITE_URL}/${post.url}</loc>
-<lastmod>${post.date}</lastmod>
-<changefreq>monthly</changefreq>
-<priority>0.8</priority>
-</url>
-`;
-
-});
-
-xml += `
+${pages.map(page => `  <url>
+    <loc>${escapeXml(SITE_URL + page.url)}</loc>
+    <lastmod>${escapeXml(page.lastmod)}</lastmod>
+    <changefreq>${page.changefreq}</changefreq>
+    <priority>${page.priority}</priority>
+  </url>`).join("\n")}
 </urlset>
 `;
 
-fs.writeFileSync("sitemap.xml", xml);
+fs.writeFileSync("sitemap.xml", xml, "utf8");
 
 console.log("sitemap.xml generated successfully.");
