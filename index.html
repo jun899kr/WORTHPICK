@@ -8,11 +8,7 @@
   <meta name="description" content="세상의 모든 가치있는 것들에 대해" />
 
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
 
     body {
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans KR", sans-serif;
@@ -20,15 +16,9 @@
       color: #222;
     }
 
-    a {
-      color: inherit;
-      text-decoration: none;
-    }
+    a { color: inherit; text-decoration: none; }
 
-    .layout {
-      display: flex;
-      min-height: 100vh;
-    }
+    .layout { display: flex; min-height: 100vh; }
 
     .sidebar {
       width: 260px;
@@ -61,14 +51,7 @@
       margin-bottom: 24px;
     }
 
-    .admin-btn:hover {
-      opacity: 0.85;
-    }
-
-    .category-list {
-      list-style: none;
-      margin-bottom: 28px;
-    }
+    .category-list { list-style: none; margin-bottom: 28px; }
 
     .category-list li {
       padding: 10px 0;
@@ -170,9 +153,7 @@
       background: #e7dfd2;
     }
 
-    .card-body {
-      padding: 20px;
-    }
+    .card-body { padding: 20px; }
 
     .meta {
       font-size: 13px;
@@ -199,59 +180,6 @@
       font-size: 16px;
     }
 
-    .modal {
-      display: none;
-      position: fixed;
-      z-index: 100;
-      inset: 0;
-      background: rgba(0,0,0,0.55);
-      padding: 40px 20px;
-      overflow-y: auto;
-    }
-
-    .modal-content {
-      max-width: 860px;
-      margin: 0 auto;
-      background: #fffaf3;
-      border-radius: 24px;
-      padding: 34px;
-      position: relative;
-    }
-
-    .close {
-      position: absolute;
-      top: 22px;
-      right: 26px;
-      font-size: 28px;
-      cursor: pointer;
-    }
-
-    .modal-content img {
-      width: 100%;
-      max-height: 440px;
-      object-fit: cover;
-      border-radius: 18px;
-      margin-bottom: 24px;
-    }
-
-    .modal-content h2 {
-      font-size: 32px;
-      margin-bottom: 12px;
-    }
-
-    .modal-content .modal-meta {
-      color: #8a7d6e;
-      margin-bottom: 24px;
-      font-size: 14px;
-    }
-
-    .modal-content .content {
-      font-size: 17px;
-      line-height: 1.9;
-      color: #333;
-      white-space: pre-line;
-    }
-
     footer {
       margin-top: 70px;
       text-align: center;
@@ -260,9 +188,7 @@
     }
 
     @media (max-width: 900px) {
-      .layout {
-        display: block;
-      }
+      .layout { display: block; }
 
       .sidebar {
         position: relative;
@@ -277,17 +203,11 @@
         padding: 38px 20px;
       }
 
-      .hero h1 {
-        font-size: 36px;
-      }
+      .hero h1 { font-size: 36px; }
 
-      .grid {
-        grid-template-columns: 1fr;
-      }
+      .grid { grid-template-columns: 1fr; }
 
-      .card img {
-        height: 220px;
-      }
+      .card img { height: 220px; }
     }
   </style>
 </head>
@@ -299,9 +219,7 @@
 
       <button class="admin-btn" onclick="goAdmin()">+ 글 추가 / 수정</button>
 
-      <ul class="category-list" id="categoryList">
-        <li class="active" onclick="filterCategory('전체', this)">전체</li>
-      </ul>
+      <ul class="category-list" id="categoryList"></ul>
 
       <div class="post-list-title">게시글 리스트</div>
       <div id="sidePostList"></div>
@@ -320,61 +238,14 @@
       <section class="grid" id="postGrid"></section>
       <div class="empty" id="emptyMessage" style="display:none;">게시글이 없습니다.</div>
 
-      <footer>
-        © WORTHPICK. All rights reserved.
-      </footer>
+      <footer>© WORTHPICK. All rights reserved.</footer>
     </main>
   </div>
 
-  <div class="modal" id="postModal">
-    <div class="modal-content">
-      <span class="close" onclick="closeModal()">×</span>
-      <img id="modalImage" src="" alt="" />
-      <h2 id="modalTitle"></h2>
-      <div class="modal-meta" id="modalMeta"></div>
-      <div class="content" id="modalContent"></div>
-    </div>
-  </div>
-
   <script>
-    // ==============================
-    // 관리자 GitHub 편집 페이지
-    // 아래 주소를 네 GitHub index.html 편집 주소로 바꿔줘
-    // 예: https://github.com/jun899kr/WORTHPICK/edit/main/index.html
-    // ==============================
-    const ADMIN_EDIT_URL = "https://github.com/jun899kr/WORTHPICK/edit/main/index.html";
+    const ADMIN_EDIT_URL = "https://github.com/jun899kr/WORTHPICK/edit/main/posts.json";
 
-    // ==============================
-    // 게시글 데이터
-    // 글 추가는 아래 posts 배열에 복사해서 추가하면 됨
-    // image는 대표사진 주소
-    // 같은 저장소에 images 폴더 만들고 이미지 넣으면 images/파일명.jpg
-    // ==============================
-    const posts = [
-      {
-        title: "첫 번째 가치픽 테스트 글",
-        category: "생활",
-        date: "2026-07-03",
-        image: "https://images.unsplash.com/photo-1499750310107-5fef28a66643?auto=format&fit=crop&w=1200&q=80",
-        summary: "WORTHPICK의 첫 번째 게시글 예시입니다.",
-        content: `이곳에 본문을 작성하면 됩니다.
-
-줄바꿈도 그대로 반영됩니다.
-
-나중에는 제품 리뷰, 생활 정보, 비즈니스 정보, 구매 가이드 등을 올릴 수 있습니다.`
-      },
-      {
-        title: "가치있는 제품을 고르는 기준",
-        category: "제품",
-        date: "2026-07-03",
-        image: "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=1200&q=80",
-        summary: "단순히 저렴한 제품보다 오래 쓸 수 있는 제품을 고르는 기준.",
-        content: `제품을 고를 때는 가격만 보는 것보다 실제 사용성, 내구성, 후기, 브랜드 신뢰도를 함께 보는 것이 좋습니다.
-
-WORTHPICK은 세상의 가치있는 선택지를 정리하는 공간입니다.`
-      }
-    ];
-
+    let posts = [];
     let currentCategory = "전체";
     let currentSearch = "";
 
@@ -382,10 +253,21 @@ WORTHPICK은 세상의 가치있는 선택지를 정리하는 공간입니다.`
       window.open(ADMIN_EDIT_URL, "_blank");
     }
 
-    function init() {
-      renderCategories();
-      renderPosts();
-      renderSidePosts();
+    async function init() {
+      try {
+        const response = await fetch("posts.json?v=" + new Date().getTime());
+        posts = await response.json();
+
+        posts.sort((a, b) => new Date(b.date) - new Date(a.date));
+
+        renderCategories();
+        renderPosts();
+        renderSidePosts();
+      } catch (error) {
+        document.getElementById("emptyMessage").style.display = "block";
+        document.getElementById("emptyMessage").textContent = "posts.json 파일을 불러오지 못했습니다.";
+        console.error(error);
+      }
     }
 
     function renderCategories() {
@@ -397,27 +279,22 @@ WORTHPICK은 세상의 가치있는 선택지를 정리하는 공간입니다.`
       categories.forEach(category => {
         const li = document.createElement("li");
         li.textContent = category;
-        li.onclick = function () {
-          filterCategory(category, li);
-        };
 
-        if (category === currentCategory) {
+        if (category === currentCategory) li.classList.add("active");
+
+        li.onclick = function () {
+          currentCategory = category;
+
+          document.querySelectorAll(".category-list li").forEach(item => {
+            item.classList.remove("active");
+          });
+
           li.classList.add("active");
-        }
+          renderPosts();
+        };
 
         categoryList.appendChild(li);
       });
-    }
-
-    function filterCategory(category, element) {
-      currentCategory = category;
-
-      document.querySelectorAll(".category-list li").forEach(li => {
-        li.classList.remove("active");
-      });
-
-      element.classList.add("active");
-      renderPosts();
     }
 
     function searchPosts() {
@@ -428,7 +305,7 @@ WORTHPICK은 세상의 가치있는 선택지를 정리하는 공간입니다.`
     function getFilteredPosts() {
       return posts.filter(post => {
         const matchCategory = currentCategory === "전체" || post.category === currentCategory;
-        const keyword = `${post.title} ${post.category} ${post.summary} ${post.content}`.toLowerCase();
+        const keyword = `${post.title} ${post.category} ${post.summary}`.toLowerCase();
         const matchSearch = keyword.includes(currentSearch);
         return matchCategory && matchSearch;
       });
@@ -448,10 +325,12 @@ WORTHPICK은 세상의 가치있는 선택지를 정리하는 공간입니다.`
 
       emptyMessage.style.display = "none";
 
-      filteredPosts.forEach((post, index) => {
+      filteredPosts.forEach(post => {
         const card = document.createElement("article");
         card.className = "card";
-        card.onclick = () => openModal(post);
+        card.onclick = () => {
+          window.location.href = post.url;
+        };
 
         card.innerHTML = `
           <img src="${post.image}" alt="${post.title}">
@@ -474,30 +353,12 @@ WORTHPICK은 세상의 가치있는 선택지를 정리하는 공간입니다.`
         const item = document.createElement("div");
         item.className = "side-post";
         item.textContent = post.title;
-        item.onclick = () => openModal(post);
+        item.onclick = () => {
+          window.location.href = post.url;
+        };
         sidePostList.appendChild(item);
       });
     }
-
-    function openModal(post) {
-      document.getElementById("modalImage").src = post.image;
-      document.getElementById("modalImage").alt = post.title;
-      document.getElementById("modalTitle").textContent = post.title;
-      document.getElementById("modalMeta").textContent = `${post.category} · ${post.date}`;
-      document.getElementById("modalContent").textContent = post.content;
-      document.getElementById("postModal").style.display = "block";
-    }
-
-    function closeModal() {
-      document.getElementById("postModal").style.display = "none";
-    }
-
-    window.onclick = function(event) {
-      const modal = document.getElementById("postModal");
-      if (event.target === modal) {
-        closeModal();
-      }
-    };
 
     init();
   </script>
