@@ -2,7 +2,7 @@
   {
     "title": "WORTHPICK의 첫 번째 이야기",
     "category": "소개",
-    "date": "2026-07-03",
+    "date": "2026-05-10",
     "image": "images/intro/about-worthpick.webp",
     "summary": "세상의 모든 가치있는 것들에 대해, WORTHPICK이 추구하는 방향과 기준을 소개합니다.",
     "url": "posts/intro/about-worthpick.html"
@@ -10,9 +10,17 @@
   {
   "title": "2026년 모니터암 선택 가이드",
   "category": "💡 제품 리뷰",
-  "date": "2026-07-03",
+  "date": "2026-06-12",
   "image": "images/product-review/monitor-arm-guide.webp",
   "summary": "후회 없는 모니터암을 고르기 위한 7가지 기준을 정리했습니다.",
   "url": "posts/product-review/monitor-arm-guide.html"
+},
+  {
+  "title": "실내 습도는 몇 %가 가장 적당할까?",
+  "description": "건강과 쾌적함을 위한 실내 적정 습도와 계절별 관리 방법을 알아봅니다.",
+  "category": "생활 꿀팁",
+  "url": "posts/life-tip/indoor-humidity-guide.html",
+  "image": "images/life-tip/indoor-humidity-guide.webp",
+  "date": "2026-07-03"
 }
 ]
