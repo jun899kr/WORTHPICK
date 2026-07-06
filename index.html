@@ -39,18 +39,6 @@
       letter-spacing: 0.5px;
     }
 
-    .admin-btn {
-      width: 100%;
-      border: 1px solid #222;
-      background: #222;
-      color: #fff;
-      padding: 11px 12px;
-      border-radius: 999px;
-      font-size: 14px;
-      cursor: pointer;
-      margin-bottom: 24px;
-    }
-
     .category-list { list-style: none; margin-bottom: 28px; }
 
     .category-list li {
@@ -145,12 +133,22 @@
       box-shadow: 0 12px 30px rgba(0,0,0,0.08);
     }
 
+    .card-image-wrap {
+      width: 100%;
+      aspect-ratio: 16 / 10;
+      background: #f1eadf;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      border-bottom: 1px solid #e5ded3;
+    }
+
     .card img {
       width: 100%;
-      height: 210px;
-      object-fit: cover;
+      height: 100%;
+      object-fit: contain;
       display: block;
-      background: #e7dfd2;
     }
 
     .card-body { padding: 20px; }
@@ -187,28 +185,26 @@
       font-size: 13px;
     }
 
-.footer-links {
+    .footer-links {
+      margin-bottom: 8px;
+    }
 
-  margin-bottom: 8px;
+    .footer-links a {
+      color: #777;
+      margin: 0 4px;
+    }
 
-}
+    .footer-links a:hover {
+      color: #222;
+      font-weight: 600;
+    }
 
-.footer-links a {
+    @media (max-width: 1100px) {
+      .grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
 
-  color: #777;
-
-  margin: 0 4px;
-
-}
-
-.footer-links a:hover {
-
-  color: #222;
-
-  font-weight: 600;
-
-}
-    
     @media (max-width: 900px) {
       .layout { display: block; }
 
@@ -229,7 +225,9 @@
 
       .grid { grid-template-columns: 1fr; }
 
-      .card img { height: 220px; }
+      .card-image-wrap {
+        aspect-ratio: 16 / 10;
+      }
     }
   </style>
 </head>
@@ -238,8 +236,6 @@
   <div class="layout">
     <aside class="sidebar">
       <div class="sidebar-title">WORTHPICK</div>
-
-      <!--<button class="admin-btn" onclick="goAdmin()">+ 글 추가 / 수정</button>-->
 
       <ul class="category-list" id="categoryList"></ul>
 
@@ -260,25 +256,16 @@
       <section class="grid" id="postGrid"></section>
       <div class="empty" id="emptyMessage" style="display:none;">게시글이 없습니다.</div>
 
-    <footer>
-
-  <div class="footer-links">
-
-    <a href="about.html">About</a>
-
-    <span>·</span>
-
-    <a href="privacy.html">Privacy Policy</a>
-
-    <span>·</span>
-
-    <a href="contact.html">Contact</a>
-
-  </div>
-
-  <div>© WORTHPICK. All rights reserved.</div>
-
-</footer>
+      <footer>
+        <div class="footer-links">
+          <a href="about.html">About</a>
+          <span>·</span>
+          <a href="privacy.html">Privacy Policy</a>
+          <span>·</span>
+          <a href="contact.html">Contact</a>
+        </div>
+        <div>© WORTHPICK. All rights reserved.</div>
+      </footer>
     </main>
   </div>
 
@@ -386,7 +373,9 @@
         };
 
         card.innerHTML = `
-          <img src="${post.image}" alt="${post.title}">
+          <div class="card-image-wrap">
+            <img src="${post.image}" alt="${post.title}" loading="lazy">
+          </div>
           <div class="card-body">
             <div class="meta">${post.category} · ${post.date}</div>
             <h2>${post.title}</h2>
