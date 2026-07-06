@@ -178,6 +178,26 @@
       font-size: 16px;
     }
 
+    .load-more-wrap {
+      text-align: center;
+      margin-top: 34px;
+    }
+
+    .load-more-btn {
+      border: 1px solid #d8cbb8;
+      background: #fffaf3;
+      color: #333;
+      padding: 12px 24px;
+      border-radius: 999px;
+      font-size: 14px;
+      cursor: pointer;
+    }
+
+    .load-more-btn:hover {
+      background: #f1eadf;
+      font-weight: 600;
+    }
+
     footer {
       margin-top: 70px;
       text-align: center;
@@ -250,11 +270,16 @@
       </section>
 
       <div class="search-box">
-        <input type="text" id="searchInput" placeholder="검색어를 입력하세요" oninput="searchPosts()" />
+        <input type="text" id="searchInput" placeholder="검색어를 입력하세요" />
       </div>
 
       <section class="grid" id="postGrid"></section>
-      <div class="empty" id="emptyMessage" style="display:none;">게시글이 없습니다.</div>
+
+      <div class="empty" id="emptyMessage">게시글 불러오는 중...</div>
+
+      <div class="load-more-wrap" id="loadMoreWrap" style="display:none;">
+        <button class="load-more-btn" id="loadMoreBtn">더보기</button>
+      </div>
 
       <footer>
         <div class="footer-links">
@@ -270,8 +295,6 @@
   </div>
 
   <script>
-    const ADMIN_EDIT_URL = "https://github.com/jun899kr/WORTHPICK/edit/main/posts.json";
-
     const DEFAULT_CATEGORIES = [
       "전체",
       "소개",
@@ -281,35 +304,70 @@
       "⭐ Worth Pick"
     ];
 
+    const POSTS_JSON_PATH = "./posts.json";
+    const POSTS_PER_PAGE = 12;
+
     let posts = [];
     let currentCategory = "전체";
     let currentSearch = "";
+    let visibleCount = POSTS_PER_PAGE;
 
-    function goAdmin() {
-      window.open(ADMIN_EDIT_URL, "_blank");
-    }
+    const categoryList = document.getElementById("categoryList");
+    const sidePostList = document.getElementById("sidePostList");
+    const postGrid = document.getElementById("postGrid");
+    const emptyMessage = document.getElementById("emptyMessage");
+    const searchInput = document.getElementById("searchInput");
+    const loadMoreWrap = document.getElementById("loadMoreWrap");
+    const loadMoreBtn = document.getElementById("loadMoreBtn");
 
     async function init() {
-      try {
-        const response = await fetch("posts.json?v=" + new Date().getTime());
-        posts = await response.json();
+      renderCategories();
 
-        posts.sort((a, b) => new Date(b.date) - new Date(a.date));
+      try {
+        const response = await fetch(POSTS_JSON_PATH, {
+          cache: "no-store"
+        });
+
+        if (!response.ok) {
+          throw new Error("posts.json 파일을 찾을 수 없습니다.");
+        }
+
+        const data = await response.json();
+
+        if (!Array.isArray(data)) {
+          throw new Error("posts.json 형식이 올바르지 않습니다.");
+        }
+
+        posts = data
+          .filter(isValidPost)
+          .sort((a, b) => new Date(b.date) - new Date(a.date));
 
         renderCategories();
         renderPosts();
         renderSidePosts();
+
       } catch (error) {
-        renderCategories();
-        document.getElementById("emptyMessage").style.display = "block";
-        document.getElementById("emptyMessage").textContent = "posts.json 파일을 불러오지 못했습니다.";
         console.error(error);
+        postGrid.innerHTML = "";
+        sidePostList.innerHTML = "";
+        emptyMessage.style.display = "block";
+        emptyMessage.textContent = "posts.json 파일을 불러오지 못했습니다. 파일 위치나 JSON 형식을 확인해주세요.";
+        loadMoreWrap.style.display = "none";
       }
     }
 
-    function renderCategories() {
-      const categoryList = document.getElementById("categoryList");
+    function isValidPost(post) {
+      return (
+        post &&
+        post.title &&
+        post.category &&
+        post.date &&
+        post.summary &&
+        post.url
+      );
+    }
 
+    function renderCategories() {
       const postCategories = posts.map(post => post.category);
       const categories = [...new Set([...DEFAULT_CATEGORIES, ...postCategories])];
 
@@ -319,10 +377,13 @@
         const li = document.createElement("li");
         li.textContent = category;
 
-        if (category === currentCategory) li.classList.add("active");
+        if (category === currentCategory) {
+          li.classList.add("active");
+        }
 
-        li.onclick = function () {
+        li.addEventListener("click", () => {
           currentCategory = category;
+          visibleCount = POSTS_PER_PAGE;
 
           document.querySelectorAll(".category-list li").forEach(item => {
             item.classList.remove("active");
@@ -330,51 +391,61 @@
 
           li.classList.add("active");
           renderPosts();
-        };
+        });
 
         categoryList.appendChild(li);
       });
     }
 
-    function searchPosts() {
-      currentSearch = document.getElementById("searchInput").value.toLowerCase();
-      renderPosts();
-    }
-
     function getFilteredPosts() {
+      const keyword = currentSearch.trim().toLowerCase();
+
       return posts.filter(post => {
-        const matchCategory = currentCategory === "전체" || post.category === currentCategory;
-        const keyword = `${post.title} ${post.category} ${post.summary}`.toLowerCase();
-        const matchSearch = keyword.includes(currentSearch);
+        const matchCategory =
+          currentCategory === "전체" || post.category === currentCategory;
+
+        const searchableText = `
+          ${post.title}
+          ${post.category}
+          ${post.summary}
+          ${post.date}
+        `.toLowerCase();
+
+        const matchSearch =
+          keyword === "" || searchableText.includes(keyword);
+
         return matchCategory && matchSearch;
       });
     }
 
     function renderPosts() {
-      const grid = document.getElementById("postGrid");
-      const emptyMessage = document.getElementById("emptyMessage");
       const filteredPosts = getFilteredPosts();
+      const visiblePosts = filteredPosts.slice(0, visibleCount);
 
-      grid.innerHTML = "";
+      postGrid.innerHTML = "";
 
       if (filteredPosts.length === 0) {
         emptyMessage.style.display = "block";
         emptyMessage.textContent = "게시글이 없습니다.";
+        loadMoreWrap.style.display = "none";
         return;
       }
 
       emptyMessage.style.display = "none";
 
-      filteredPosts.forEach(post => {
+      visiblePosts.forEach(post => {
         const card = document.createElement("article");
         card.className = "card";
-        card.onclick = () => {
+
+        card.addEventListener("click", () => {
           window.location.href = post.url;
-        };
+        });
+
+        const imagePath = post.image || "images/intro/about-worthpick.webp";
 
         card.innerHTML = `
           <div class="card-image-wrap">
-            <img src="${post.image}" alt="${post.title}" loading="lazy">
+            <img src="${imagePath}" alt="${post.title}" loading="lazy" onerror="this.src='images/intro/about-worthpick.webp'">
           </div>
           <div class="card-body">
             <div class="meta">${post.category} · ${post.date}</div>
@@ -383,24 +454,42 @@
           </div>
         `;
 
-        grid.appendChild(card);
+        postGrid.appendChild(card);
       });
+
+      if (filteredPosts.length > visibleCount) {
+        loadMoreWrap.style.display = "block";
+      } else {
+        loadMoreWrap.style.display = "none";
+      }
     }
 
     function renderSidePosts() {
-      const sidePostList = document.getElementById("sidePostList");
       sidePostList.innerHTML = "";
 
-      posts.forEach(post => {
+      posts.slice(0, 20).forEach(post => {
         const item = document.createElement("div");
         item.className = "side-post";
         item.textContent = post.title;
-        item.onclick = () => {
+
+        item.addEventListener("click", () => {
           window.location.href = post.url;
-        };
+        });
+
         sidePostList.appendChild(item);
       });
     }
+
+    searchInput.addEventListener("input", () => {
+      currentSearch = searchInput.value;
+      visibleCount = POSTS_PER_PAGE;
+      renderPosts();
+    });
+
+    loadMoreBtn.addEventListener("click", () => {
+      visibleCount += POSTS_PER_PAGE;
+      renderPosts();
+    });
 
     init();
   </script>
