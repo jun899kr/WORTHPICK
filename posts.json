@@ -60,6 +60,14 @@
   "image": "images/life-tip/dehumidifier-all-day-electricity.webp",
   "summary": "제습기를 하루 종일 켜도 괜찮은지, 전기세 계산법과 효율적인 사용 방법을 정리했습니다.",
   "url": "posts/life-tip/dehumidifier-all-day-electricity.html"
+},
+{
+  "title": "ChatGPT는 개인정보를 학습할까? 대화 내용은 안전할까?",
+  "category": "📱 IT & AI",
+  "date": "2026-03-03",
+  "image": "images/it-ai/chatgpt-privacy-guide.webp",
+  "summary": "ChatGPT에 입력한 개인정보가 학습되는지, 대화 내용은 얼마나 안전한지 쉽게 정리했습니다.",
+  "url": "posts/it-ai/chatgpt-privacy-guide.html"
 }
 
 ]
