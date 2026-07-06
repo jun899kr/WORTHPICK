@@ -43,5 +43,14 @@
   "image": "images/life-tip/indoor-humidity-guide.webp",
   "summary": "건강과 쾌적함을 위한 실내 적정 습도와 계절별 관리 방법을 알아봅니다.",
   "url": "posts/life-tip/indoor-humidity-guide.html"
+},
+{
+  "title": "선풍기와 서큘레이터 차이점, 어떤 걸 사야 할까?",
+  "category": "🏠 생활 꿀팁",
+  "date": "2026-07-06",
+  "image": "images/life-tip/fan-vs-air-circulator.webp",
+  "summary": "선풍기와 서큘레이터의 차이점, 장단점, 사용 목적별 선택 기준을 한눈에 정리했습니다.",
+  "url": "posts/life-tip/fan-vs-air-circulator.html"
 }
+
 ]
