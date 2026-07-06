@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ChatGPT는 개인정보를 학습할까? 대화 내용은 안전할까? | WORTHPICK</title>
+  <meta name="description" content="ChatGPT에 입력한 개인정보가 학습되는지, 대화 내용은 안전한지, 사용자가 꼭 알아야 할 설정과 주의사항을 쉽게 정리했습니다." />
+  <meta name="keywords" content="ChatGPT 개인정보, ChatGPT 대화 내용, ChatGPT 학습, ChatGPT 보안, ChatGPT 안전" />
+  <meta property="og:title" content="ChatGPT는 개인정보를 학습할까? 대화 내용은 안전할까? | WORTHPICK" />
+  <meta property="og:description" content="ChatGPT에 입력한 정보가 어떻게 다뤄지는지, 민감한 정보를 입력해도 되는지 쉽게 정리했습니다." />
+  <meta property="og:type" content="article" />
+  <meta property="og:image" content="../../images/it-ai/chatgpt-privacy-guide.webp" />
+  <style>
+    body { margin:0; font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans KR",sans-serif; background:#f7f2ea; color:#222; line-height:1.82; }
+    .container { max-width:860px; margin:0 auto; padding:42px 22px 80px; }
+    .back { display:inline-block; margin-bottom:32px; color:#777; text-decoration:none; font-size:14px; }
+    .hero-img { width:100%; max-width:100%; height:auto; display:block; border-radius:20px; margin-bottom:34px; }
+    .category { color:#8a7d6e; font-size:14px; margin-bottom:10px; }
+    h1 { font-size:38px; line-height:1.28; margin:0 0 18px; letter-spacing:-0.8px; }
+    .desc { color:#555; font-size:18px; margin-bottom:28px; }
+    .meta { color:#888; font-size:14px; margin-bottom:34px; }
+    .summary-box, .note-box { background:#fffaf3; border:1px solid #e5ded3; border-radius:18px; padding:22px; margin:32px 0; }
+    .summary-box strong { display:block; margin-bottom:10px; }
+    h2 { font-size:28px; margin:54px 0 18px; line-height:1.35; }
+    h3 { font-size:21px; margin:34px 0 12px; }
+    p { margin:0 0 18px; }
+    ul, ol { padding-left:22px; margin:12px 0 24px; }
+    li { margin-bottom:8px; }
+    table { width:100%; border-collapse:collapse; margin:24px 0 34px; background:#fffaf3; border-radius:16px; overflow:hidden; }
+    th, td { border:1px solid #e5ded3; padding:14px; text-align:left; vertical-align:top; }
+    th { background:#efe5d8; }
+    .faq-item { background:#fffaf3; border:1px solid #e5ded3; border-radius:16px; padding:18px 20px; margin-bottom:14px; }
+    .faq-item strong { display:block; margin-bottom:8px; }
+    .related { margin-top:58px; padding:26px; background:#fffaf3; border:1px solid #e5ded3; border-radius:20px; }
+    .related h2 { margin-top:0; font-size:24px; }
+    .related a { color:#222; text-decoration:none; border-bottom:1px solid #c9b89f; }
+    .nav-posts { display:flex; justify-content:space-between; gap:14px; margin-top:26px; font-size:15px; }
+    .nav-posts a { flex:1; padding:16px; background:#fffaf3; border:1px solid #e5ded3; border-radius:16px; text-decoration:none; color:#333; }
+    footer { margin-top:70px; text-align:center; color:#999; font-size:13px; }
+    @media (max-width:700px){ h1{font-size:30px;} h2{font-size:24px;} .nav-posts{flex-direction:column;} }
+  </style>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "ChatGPT는 개인정보를 학습할까? 대화 내용은 안전할까?",
+    "description": "ChatGPT에 입력한 개인정보가 학습되는지, 대화 내용은 안전한지 쉽게 정리했습니다.",
+    "author": { "@type": "Organization", "name": "WORTHPICK" },
+    "publisher": { "@type": "Organization", "name": "WORTHPICK" },
+    "datePublished": "2026-03-03",
+    "dateModified": "2026-03-03",
+    "image": "../../images/it-ai/chatgpt-privacy-guide.webp"
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {"@type":"Question","name":"ChatGPT에 입력한 개인정보는 무조건 학습되나요?","acceptedAnswer":{"@type":"Answer","text":"무조건 학습된다고 단정하기는 어렵지만, 사용 환경과 설정에 따라 서비스 개선이나 모델 향상 목적으로 활용될 수 있습니다. 따라서 주민등록번호, 계좌번호, 비밀번호 등 민감정보는 입력하지 않는 것이 안전합니다."}},
+      {"@type":"Question","name":"ChatGPT에 회사 자료를 넣어도 되나요?","acceptedAnswer":{"@type":"Answer","text":"공개되어도 문제가 없는 자료라면 괜찮지만, 계약서, 고객정보, 미공개 매출자료, 내부 전략 문서 등은 입력하지 않는 것이 좋습니다."}},
+      {"@type":"Question","name":"대화 내용을 삭제하면 안전한가요?","acceptedAnswer":{"@type":"Answer","text":"대화 삭제는 노출 위험을 줄이는 데 도움이 되지만, 이미 입력한 민감정보가 완전히 없던 일이 되는 것은 아닐 수 있습니다. 처음부터 민감한 내용은 넣지 않는 습관이 가장 중요합니다."}}
+    ]
+  }
+  </script>
+</head>
+<body>
+  <div class="container">
+    <a class="back" href="../../index.html">← WORTHPICK 홈으로</a>
+
+    <img class="hero-img" src="../../images/it-ai/chatgpt-privacy-guide.webp" alt="개인정보 보호와 AI 보안을 상징하는 노트북과 자물쇠 이미지" />
+
+    <div class="category">📱 IT & AI</div>
+    <h1>ChatGPT는 개인정보를 학습할까? 대화 내용은 안전할까?</h1>
+    <p class="desc">ChatGPT를 쓰다 보면 가장 먼저 드는 걱정이 있습니다. “내가 입력한 대화가 학습에 쓰일까?”, “개인정보를 넣어도 괜찮을까?” 이 글에서는 일반 사용자가 꼭 알아야 할 기준만 쉽게 정리합니다.</p>
+    <div class="meta">2026-03-03 · WORTHPICK</div>
+
+    <div class="summary-box">
+      <strong>3줄 요약</strong>
+      <ul>
+        <li>ChatGPT에는 주민등록번호, 비밀번호, 계좌번호, 계약서 원문 같은 민감정보를 넣지 않는 것이 안전합니다.</li>
+        <li>대화 내용이 어떻게 활용되는지는 사용 중인 서비스, 요금제, 설정, 기업용 환경에 따라 달라질 수 있습니다.</li>
+        <li>가장 좋은 사용법은 개인정보를 가리고, 공개 가능한 수준으로 바꿔서 질문하는 것입니다.</li>
+      </ul>
+    </div>
+
+    <h2>결론: ChatGPT는 편하지만, 개인정보 입력은 조심해야 합니다</h2>
+    <p>ChatGPT는 글쓰기, 요약, 번역, 코드 작성, 아이디어 정리에 매우 유용합니다. 하지만 편하다고 해서 모든 정보를 그대로 넣어도 되는 것은 아닙니다. 특히 개인을 식별할 수 있는 정보나 회사 내부 자료는 한 번 입력되면 관리 범위를 벗어날 수 있기 때문에 주의해야 합니다.</p>
+    <p>핵심은 간단합니다. <strong>공개되어도 문제가 없는 정보는 사용 가능, 공개되면 곤란한 정보는 넣지 않기</strong>입니다. 이 기준만 지켜도 대부분의 위험을 크게 줄일 수 있습니다.</p>
+
+    <h2>ChatGPT에 입력하면 조심해야 하는 정보</h2>
+    <p>아래 정보는 가능한 한 입력하지 않는 것이 좋습니다.</p>
+    <table>
+      <thead>
+        <tr><th>정보 종류</th><th>예시</th><th>권장 사용 방식</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>개인 식별 정보</td><td>이름, 전화번호, 주소, 주민등록번호</td><td>가명 또는 일부 마스킹 처리</td></tr>
+        <tr><td>금융 정보</td><td>계좌번호, 카드번호, 인증번호</td><td>입력하지 않기</td></tr>
+        <tr><td>계정 정보</td><td>비밀번호, API 키, 로그인 토큰</td><td>절대 입력하지 않기</td></tr>
+        <tr><td>회사 내부 자료</td><td>계약서, 견적서, 고객 리스트, 미공개 전략</td><td>민감한 부분 제거 후 요약본만 사용</td></tr>
+        <tr><td>법률·의료 자료</td><td>진단서, 소송자료, 민감한 상담 내용</td><td>식별정보 제거 후 일반화해서 질문</td></tr>
+      </tbody>
+    </table>
+
+    <h2>“학습된다”는 말은 정확히 무엇을 뜻할까?</h2>
+    <p>많은 사람이 “ChatGPT가 내 대화를 학습한다”는 말을 듣고, 내 대화가 그대로 다른 사람에게 보이는 것처럼 생각합니다. 하지만 일반적으로는 대화가 그대로 복사되어 누군가에게 보여진다는 뜻이라기보다, 서비스 품질 개선이나 모델 개선에 활용될 수 있다는 의미로 이해하는 것이 더 가깝습니다.</p>
+    <p>다만 사용자 입장에서 중요한 것은 기술적인 세부 구조보다 <strong>내가 입력한 정보가 내 통제를 벗어날 수 있다는 가능성</strong>입니다. 따라서 민감정보는 처음부터 넣지 않는 습관이 가장 안전합니다.</p>
+
+    <h2>안전하게 쓰는 가장 좋은 방법</h2>
+    <h3>1. 개인정보는 가리고 질문하기</h3>
+    <p>예를 들어 실제 이름과 전화번호를 넣는 대신 “A씨”, “010-XXXX-XXXX”, “서울의 한 아파트”처럼 바꿔도 대부분의 답변 품질은 크게 떨어지지 않습니다.</p>
+
+    <h3>2. 원문 전체보다 요약본을 넣기</h3>
+    <p>계약서나 견적서 같은 문서는 전체를 그대로 넣기보다, 민감한 정보와 금액, 상대방 정보를 제거한 뒤 핵심 조항만 입력하는 것이 좋습니다.</p>
+
+    <h3>3. 비밀번호·인증번호·API 키는 절대 입력하지 않기</h3>
+    <p>이 정보들은 한 번 노출되면 직접적인 피해로 이어질 수 있습니다. 코드 검토를 받을 때도 API 키나 토큰은 반드시 삭제하고 올려야 합니다.</p>
+
+    <h3>4. 회사 업무에는 내부 정책을 먼저 확인하기</h3>
+    <p>회사 자료를 AI에 입력해도 되는지는 개인 판단으로 결정하면 위험합니다. 사내 보안 정책, 고객사 계약 조건, 비밀유지 조항을 먼저 확인하는 것이 안전합니다.</p>
+
+    <div class="note-box">
+      <strong>WORTHPICK 기준</strong>
+      <p>ChatGPT는 “생각을 정리하는 도구”로 쓰면 매우 좋습니다. 하지만 “민감한 원본 자료를 그대로 맡기는 보관함”처럼 쓰는 것은 추천하지 않습니다.</p>
+    </div>
+
+    <h2>이런 질문 방식이 더 안전합니다</h2>
+    <table>
+      <thead>
+        <tr><th>피해야 할 방식</th><th>더 안전한 방식</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>“홍길동, 010-1234-5678 고객에게 보낼 문자를 써줘.”</td><td>“고객 A에게 보낼 안내 문자를 써줘.”</td></tr>
+        <tr><td>“이 계약서 전문을 검토해줘.”</td><td>“아래 조항에서 불리할 수 있는 표현을 알려줘. 회사명과 금액은 제거했어.”</td></tr>
+        <tr><td>“내 API 키가 sk-...인데 오류가 나.”</td><td>“API 키 부분은 [API_KEY]로 가렸어. 이 코드 구조를 봐줘.”</td></tr>
+      </tbody>
+    </table>
+
+    <h2>개인 사용자와 기업 사용자는 기준이 다를 수 있습니다</h2>
+    <p>개인용 서비스, 유료 구독, 팀/기업용 서비스는 데이터 처리 방식과 관리 옵션이 다를 수 있습니다. 특히 기업용 환경에서는 관리자 설정, 데이터 사용 제한, 보안 기능 등이 별도로 제공될 수 있습니다.</p>
+    <p>따라서 중요한 업무에 사용한다면 단순히 “ChatGPT니까 괜찮겠지”라고 생각하기보다, 사용 중인 서비스의 데이터 설정과 약관을 확인하는 것이 좋습니다.</p>
+
+    <h2>FAQ</h2>
+    <div class="faq-item"><strong>Q. ChatGPT에 쓴 대화가 다른 사람에게 그대로 보이나요?</strong><p>일반적으로 내 대화가 그대로 다른 사람에게 공개되는 구조라고 보기는 어렵습니다. 하지만 민감정보는 서비스 처리 과정과 보관 정책의 영향을 받을 수 있으므로 입력하지 않는 것이 안전합니다.</p></div>
+    <div class="faq-item"><strong>Q. 대화를 삭제하면 완전히 안전한가요?</strong><p>대화 삭제는 노출 위험을 줄이는 데 도움이 되지만, 가장 안전한 방법은 애초에 민감정보를 입력하지 않는 것입니다.</p></div>
+    <div class="faq-item"><strong>Q. 회사 문서를 요약해도 되나요?</strong><p>공개 가능한 문서라면 괜찮지만, 고객정보·견적·계약조건·미공개 전략이 들어 있다면 반드시 익명화하거나 내부 정책을 확인해야 합니다.</p></div>
+    <div class="faq-item"><strong>Q. ChatGPT를 안전하게 쓰는 핵심 원칙은?</strong><p>개인정보는 가리고, 원문보다 요약본을 넣고, 비밀번호나 인증정보는 절대 입력하지 않는 것입니다.</p></div>
+
+    <div class="related">
+      <h2>📖 함께 읽으면 좋은 글</h2>
+      <ul>
+        <li><a href="chatgpt-free-vs-plus.html">ChatGPT 무료와 Plus의 차이점, 어떤 사람이 유료를 써야 할까?</a></li>
+        <li><a href="../../posts/worth-pick/value-over-price.html">가격보다 가치를 먼저 봐야 하는 이유</a></li>
+        <li><a href="../../posts/life-tip/indoor-humidity-guide.html">실내 습도는 몇 %가 가장 적당할까?</a></li>
+      </ul>
+      <div class="nav-posts">
+        <a href="../../posts/intro/about-worthpick.html">← 이전 글<br>WORTHPICK의 첫 번째 이야기</a>
+        <a href="chatgpt-free-vs-plus.html">다음 글 →<br>ChatGPT 무료와 Plus의 차이점</a>
+      </div>
+    </div>
+
+    <footer>© WORTHPICK. All rights reserved.</footer>
+  </div>
+</body>
+</html>
