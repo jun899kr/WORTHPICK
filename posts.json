@@ -86,5 +86,13 @@
   "image": "images/it-ai/power-bank-airplane-guide.webp",
   "summary": "보조배터리를 비행기에 가져갈 수 있는지, 100Wh·160Wh 기준과 위탁수하물 금지 이유, 용량별 반입 가능 여부를 쉽게 정리했습니다.",
   "url": "posts/it-ai/power-bank-airplane-guide.html"
+},
+{
+  "title": "휴대폰 충전은 100%까지 하는 게 좋을까? 배터리 오래 쓰는 충전 습관 총정리",
+  "category": "📱 IT & AI",
+  "date": "2026-07-07",
+  "image": "images/it-ai/battery-charge-guide.webp",
+  "summary": "휴대폰 배터리는 100%까지 충전해야 할까요? 리튬이온 배터리의 원리부터 배터리 수명을 오래 유지하는 올바른 충전 습관까지 한 번에 정리했습니다.",
+  "url": "posts/it-ai/battery-charge-guide.html"
 }
 ]
