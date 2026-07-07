@@ -102,5 +102,13 @@
     "image": "images/it-ai/battery-charge-guide.webp",
     "summary": "휴대폰 배터리는 100%까지 충전해야 할까요? 리튬이온 배터리의 원리부터 배터리 수명을 오래 유지하는 올바른 충전 습관까지 한 번에 정리했습니다.",
     "url": "posts/it-ai/battery-charge-guide.html"
-  }
+  },
+  {
+  "title": "USB-C 케이블은 다 같은 제품일까? 충전 속도부터 데이터 전송까지 완벽 정리",
+  "category": "💡 제품 리뷰",
+  "date": "2026-06-24",
+  "image": "images/product-review/usb-c-cable-guide.webp",
+  "summary": "USB-C 케이블은 겉모양이 같아도 충전 속도, 데이터 전송, 영상 출력, PD 충전 지원 여부가 다릅니다. 구매 전 꼭 확인해야 할 기준을 정리했습니다.",
+  "url": "posts/product-review/usb-c-cable-guide.html"
+}
 ]
