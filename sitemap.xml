@@ -31,8 +31,26 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://worthpick.co.kr/posts/it-ai/chatgpt-privacy-guide.html</loc>
+    <lastmod>2026-03-03</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://worthpick.co.kr/posts/life-tip/rainy-day-laundry-guide.html</loc>
+    <lastmod>2026-03-09</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://worthpick.co.kr/posts/it-ai/chatgpt-free-vs-plus.html</loc>
     <lastmod>2026-04-09</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://worthpick.co.kr/posts/it-ai/power-bank-airplane-guide.html</loc>
+    <lastmod>2026-06-09</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -49,8 +67,20 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://worthpick.co.kr/posts/worth-pick/refurbished-product-guide.html</loc>
+    <lastmod>2026-06-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://worthpick.co.kr/posts/life-tip/indoor-humidity-guide.html</loc>
     <lastmod>2026-07-03</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://worthpick.co.kr/posts/worth-pick/long-lasting-product-guide.html</loc>
+    <lastmod>2026-07-05</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -63,24 +93,6 @@
   <url>
     <loc>https://worthpick.co.kr/posts/life-tip/dehumidifier-all-day-electricity.html</loc>
     <lastmod>2026-07-06</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://worthpick.co.kr/posts/it-ai/chatgpt-privacy-guide.html</loc>
-    <lastmod>2026-03-03</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://worthpick.co.kr/posts/life-tip/rainy-day-laundry-guide.html</loc>
-    <lastmod>2026-03-09</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://worthpick.co.kr/posts/it-ai/power-bank-airplane-guide.html</loc>
-    <lastmod>2026-06-09</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
