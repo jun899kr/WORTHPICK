@@ -4,10 +4,10 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <!-- Google AdSense -->
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9721591297193068"
-     crossorigin="anonymous"></script>
-  
+  <!-- Google AdSense -->
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9721591297193068"
+       crossorigin="anonymous"></script>
+
   <title>WORTHPICK</title>
   <meta name="description" content="세상의 모든 가치있는 것들에 대해" />
 
@@ -76,6 +76,28 @@
 
     .side-post:hover {
       color: #000;
+      font-weight: 600;
+    }
+
+    .side-load-more-wrap {
+      display: none;
+      text-align: center;
+      margin-top: 14px;
+    }
+
+    .side-load-more-btn {
+      width: 100%;
+      border: 1px solid #d8cbb8;
+      background: #fffaf3;
+      color: #333;
+      padding: 10px 14px;
+      border-radius: 999px;
+      font-size: 13px;
+      cursor: pointer;
+    }
+
+    .side-load-more-btn:hover {
+      background: #f1eadf;
       font-weight: 600;
     }
 
@@ -239,6 +261,10 @@
         border-bottom: 1px solid #e5ded3;
       }
 
+      .side-load-more-wrap {
+        display: block;
+      }
+
       .main {
         margin-left: 0;
         width: 100%;
@@ -265,6 +291,10 @@
 
       <div class="post-list-title">게시글 리스트</div>
       <div id="sidePostList"></div>
+
+      <div class="side-load-more-wrap" id="sideLoadMoreWrap" style="display:none;">
+        <button class="side-load-more-btn" id="sideLoadMoreBtn">게시글 더보기</button>
+      </div>
     </aside>
 
     <main class="main">
@@ -307,18 +337,26 @@
       "📱 IT & AI",
       "⭐ Worth Pick",
       "🔥 Hot Issue"
-      ];
+    ];
 
     const POSTS_JSON_PATH = "./posts.json";
     const POSTS_PER_PAGE = 12;
+
+    const MOBILE_BREAKPOINT = 900;
+    const MOBILE_SIDE_POSTS_INITIAL = 5;
+    const MOBILE_SIDE_POSTS_STEP = 5;
+    const DESKTOP_SIDE_POSTS_LIMIT = 20;
 
     let posts = [];
     let currentCategory = "전체";
     let currentSearch = "";
     let visibleCount = POSTS_PER_PAGE;
+    let sideVisibleCount = MOBILE_SIDE_POSTS_INITIAL;
 
     const categoryList = document.getElementById("categoryList");
     const sidePostList = document.getElementById("sidePostList");
+    const sideLoadMoreWrap = document.getElementById("sideLoadMoreWrap");
+    const sideLoadMoreBtn = document.getElementById("sideLoadMoreBtn");
     const postGrid = document.getElementById("postGrid");
     const emptyMessage = document.getElementById("emptyMessage");
     const searchInput = document.getElementById("searchInput");
@@ -358,6 +396,7 @@
         emptyMessage.style.display = "block";
         emptyMessage.textContent = "posts.json 파일을 불러오지 못했습니다. 파일 위치나 JSON 형식을 확인해주세요.";
         loadMoreWrap.style.display = "none";
+        sideLoadMoreWrap.style.display = "none";
       }
     }
 
@@ -370,6 +409,10 @@
         post.summary &&
         post.url
       );
+    }
+
+    function isMobileView() {
+      return window.innerWidth <= MOBILE_BREAKPOINT;
     }
 
     function renderCategories() {
@@ -462,17 +505,20 @@
         postGrid.appendChild(card);
       });
 
-      if (filteredPosts.length > visibleCount) {
-        loadMoreWrap.style.display = "block";
-      } else {
-        loadMoreWrap.style.display = "none";
-      }
+      loadMoreWrap.style.display =
+        filteredPosts.length > visibleCount ? "block" : "none";
     }
 
     function renderSidePosts() {
       sidePostList.innerHTML = "";
 
-      posts.slice(0, 20).forEach(post => {
+      const displayLimit = isMobileView()
+        ? sideVisibleCount
+        : DESKTOP_SIDE_POSTS_LIMIT;
+
+      const visibleSidePosts = posts.slice(0, displayLimit);
+
+      visibleSidePosts.forEach(post => {
         const item = document.createElement("div");
         item.className = "side-post";
         item.textContent = post.title;
@@ -483,6 +529,12 @@
 
         sidePostList.appendChild(item);
       });
+
+      if (isMobileView() && posts.length > sideVisibleCount) {
+        sideLoadMoreWrap.style.display = "block";
+      } else {
+        sideLoadMoreWrap.style.display = "none";
+      }
     }
 
     searchInput.addEventListener("input", () => {
@@ -494,6 +546,18 @@
     loadMoreBtn.addEventListener("click", () => {
       visibleCount += POSTS_PER_PAGE;
       renderPosts();
+    });
+
+    sideLoadMoreBtn.addEventListener("click", () => {
+      sideVisibleCount += MOBILE_SIDE_POSTS_STEP;
+      renderSidePosts();
+    });
+
+    window.addEventListener("resize", () => {
+      if (!isMobileView()) {
+        sideVisibleCount = MOBILE_SIDE_POSTS_INITIAL;
+      }
+      renderSidePosts();
     });
 
     init();
